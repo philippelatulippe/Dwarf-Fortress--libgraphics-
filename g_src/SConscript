@@ -69,6 +69,10 @@ if not clang and not M64:
    env['ASFLAGS']="--32"
    env['LINKFLAGS'].append("-m32")
    env["CCFLAGS"].append("-m32")
+   env["ENV"]["PKG_CONFIG_PATH"]="/usr/lib/i386-linux-gnu/pkgconfig"
+   env["LINKFLAGS"].append("-L/usr/lib/i386-linux-gnu")
+   env["LINKFLAGS"].append("-L/usr/lib/gcc/i686-linux-gnu/4.7")
+
 env.ParseConfig('pkg-config gtk+-2.0 --cflags --libs')
 env.ParseConfig('pkg-config openal --cflags')
 env.ParseConfig('pkg-config sndfile --cflags')
