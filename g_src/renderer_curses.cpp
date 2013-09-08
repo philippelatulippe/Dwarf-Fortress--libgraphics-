@@ -222,6 +222,7 @@ extern "C" {
   static int (*_init_pair)(short p, short fg, short bg);
   static int (*_getmouse)(MEVENT *m);
   static int (*_waddnwstr)(WINDOW *w, const wchar_t *s, int i);
+  static int (*_define_key)(const char *definition, int keycode);
 
   static void *dlsym_orexit(const char *symbol, bool actually_exit = true) {
     void *sym = dlsym(handle, symbol);
@@ -287,6 +288,9 @@ extern "C" {
   int waddnwstr(WINDOW *w, const wchar_t *s, int n) {
     return _waddnwstr(w, s, n);
   }
+  int define_key(const char *definition, int keycode){
+    return _define_key(definition, keycode);
+  }
 
   void init_curses() {
     static bool stub_initialized = false;
@@ -331,6 +335,7 @@ extern "C" {
       _init_pair = (int (*)(short p, short fg, short bg))dlsym_orexit("init_pair");
       _getmouse = (int (*)(MEVENT *m))dlsym_orexit("getmouse");
       _waddnwstr = (int (*)(WINDOW *w, const wchar_t *s, int i))dlsym_orexit("waddnwstr");
+      _define_key = (int (*)(const char *definition, int keycode))dlsym_orexit("define_key");
     }
     
     // Initialize curses
@@ -353,6 +358,10 @@ extern "C" {
       // mousemask(ALL_MOUSE_EVENTS, &dummy);
       start_color();
       init_pair(1, COLOR_WHITE, COLOR_BLACK);
+
+      //TODO: send CSI > PS; Ps m sequence to enable modifyOtherKeys.  We want CSI > 4; 1 m
+
+      define_key("\033[27;2;13~", KEY_DF_SENTER);
       
       atexit(endwin_void);
     }

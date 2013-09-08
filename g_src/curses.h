@@ -24,5 +24,6 @@ extern "C" {
 #endif
 #endif
 
+#define KEY_DF_SENTER (0527 | 1 << 13) //Shift enter
 
 #endif

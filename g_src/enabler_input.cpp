@@ -558,6 +558,10 @@ void enabler_inputst::add_input_ncurses(int key, Time now, bool esc) {
   if (key == -10) { // Return
     sdl.key = SDLK_RETURN;
     uni.unicode = '\n';
+  } else if(key == KEY_DF_SENTER) { // Shift-enter
+    sdl.key = SDLK_RETURN;
+    sdl.mod |= DFMOD_SHIFT;
+    std::cerr << "SHIFT-ENTER!" << std::endl;
   } else if (key == -9) { // Tab
     sdl.key = SDLK_TAB;
     uni.unicode = '\t';
