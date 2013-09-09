@@ -361,7 +361,11 @@ extern "C" {
 
       //TODO: send CSI > PS; Ps m sequence to enable modifyOtherKeys.  We want CSI > 4; 1 m
 
+      //Terminals that support modifyOtherKeys send these sequences
       define_key("\033[27;2;13~", KEY_DF_SENTER);
+      //If they have the "CSI u" format enabled, they will instead send these
+      define_key("\033[13;2u~", KEY_DF_SENTER);
+
       
       atexit(endwin_void);
     }
