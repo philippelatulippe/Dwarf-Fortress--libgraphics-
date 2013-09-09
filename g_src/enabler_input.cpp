@@ -561,7 +561,6 @@ void enabler_inputst::add_input_ncurses(int key, Time now, bool esc) {
   } else if(key == KEY_DF_SENTER) { // Shift-enter
     sdl.key = SDLK_RETURN;
     sdl.mod |= DFMOD_SHIFT;
-    std::cerr << "SHIFT-ENTER!" << std::endl;
   } else if (key == -9) { // Tab
     sdl.key = SDLK_TAB;
     uni.unicode = '\t';
@@ -607,6 +606,9 @@ void enabler_inputst::add_input_ncurses(int key, Time now, bool esc) {
     case KEY_NPAGE: sdl.key = SDLK_PAGEDOWN; break;
     case KEY_PPAGE: sdl.key = SDLK_PAGEUP; break;
     case KEY_ENTER: sdl.key = SDLK_RETURN; break;
+    case KEY_SLEFT: sdl.key = SDLK_LEFT; sdl.mod |= DFMOD_SHIFT; break;
+    case KEY_SRIGHT: sdl.key = SDLK_RIGHT; sdl.mod |= DFMOD_SHIFT; break;
+
     }
   }
 
